@@ -63,10 +63,8 @@ Sean 7 hilos que leen y otros 7 que escriben en cuatro ficheros. Los lectores pu
 
 ###08 PI
 
-Crea un proceso demonio que rellene un fichero en segundo plano con los decimales de PI usando el algritmo de Chudnosvsky: 
+Crea un proceso demonio que rellene un fichero en segundo plano con los decimales de PI usando el algritmo de Chudnosvsky. Cada nuevo término aporta 14 decimales más al cálculo.
 
- \cfrac{1}{\pi} = 12 \; \displaystyle{\sum^\infty_{k=0} \cfrac{(-1)^k (6k)! (13591409 + 545140134k)}{(3k)!(k!)^3 640320^{3k + 3/2}}}
- 
 ###09 Los ascensores
 
 Sea un rascacielo con planta alta y planta baja exclusivamente. Sean 3 ascensores con capacidad para 4 personas que pueden subir, bajar, cargar y descargar. El aforo de la planta alta son 20 personas. Crea un programa que simule el funcionamiento del edificio. Es posible que el ascensor diga que no es posible cargar en ese viaje. Los tres ascensores conocen en cada momento el aforo y el plan de carga de los otros ascensores.
