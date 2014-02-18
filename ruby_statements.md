@@ -69,3 +69,15 @@ Crea un proceso demonio que rellene un fichero en segundo plano con los decimale
 
 Sea un rascacielo con planta alta y planta baja exclusivamente. Sean 3 ascensores con capacidad para 4 personas que pueden subir, bajar, cargar y descargar. El aforo de la planta alta son 20 personas. Crea un programa que simule el funcionamiento del edificio. Es posible que el ascensor diga que no es posible cargar en ese viaje. Los tres ascensores conocen en cada momento el aforo y el plan de carga de los otros ascensores.
 
+
+linux c
+=======
+
+###01 ps
+
+Explore ps command
+
+###02 pid, ppid
+
+Write a c program that outpus pid and ppid
+
