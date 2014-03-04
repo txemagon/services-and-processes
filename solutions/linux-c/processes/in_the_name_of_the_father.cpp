@@ -1,3 +1,5 @@
+/* Example invocation: txema@eniac$ ./in_th_name_of_the_father ./aritmetica 50000 */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
