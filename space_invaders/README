@@ -1,0 +1,23 @@
+SPRITE FORMAT
+=============
+
+The artwork directory contains the drawings made with unicode u2588 -█-
+All the rows are supposed to be the same size, so it is mandatory to pad
+them with blank spaces.
+
+The last line of the sprite should be a dashed line with the same size 
+-width- of it.
+
+COMMANDS
+========
+Commands width_of.sh, height_of.sh, and width_and_height_of.sh provide aid
+to check out the values of this parameters. This commands are used by 
+binarize.sh
+
+binarize.sh converts u2588 into 1's and white space -0x20- into 0's.
+            use this command to check that columns have fixed width.
+            this command is used by hexadecimalize.sh.
+            This command supports globbing.
+
+hexadecimalize.sh yields an hexadecimal number from the one lined binary
+                  representation. This command supports globbing.
