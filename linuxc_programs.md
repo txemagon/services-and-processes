@@ -1,6 +1,12 @@
 GNU/linux Statements
 ====================
 
+## Overview
+
+# External Function
+
+Ensure yourself you are able to write and compile a program with an external library written by you. Force yourserlf to use a Makefile.
+
 Fork
 ----
 

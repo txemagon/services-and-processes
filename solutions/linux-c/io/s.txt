@@ -1,0 +1,2 @@
+dime tu nombre: Hola Juan
+dime tu nombre: Hola Txema
