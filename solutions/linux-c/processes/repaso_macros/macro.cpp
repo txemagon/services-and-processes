@@ -6,8 +6,8 @@
 
 int main() {
     int pesetas = 8000;
-    printf("%i pts. son %.2lf euros\n", 
-	    pesetas, 
+    printf("%i pts. son %.2lf euros\n",
+	    pesetas,
 	    EUROS(pesetas));
     return EXIT_SUCCESS;
 }
