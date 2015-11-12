@@ -4,14 +4,14 @@
 #include <pthread.h>
 #include <semaphore.h>
 
-#define NPEONES  4
-#define NALBA    1140
-#define ALBACONC 1000
+#define NPEONES  2
+#define NALBA    140
+#define ALBACONC 10
 #define TOTAL 4000
 
 
-int puestos = 0;
-int pila = 150;
+int puestos = 0; // Ladrillos ya puestos
+int pila = 150;  // Ladrillos disponibles.
 
 pthread_mutex_t mutex_pila = PTHREAD_MUTEX_INITIALIZER;
 pthread_mutex_t mutex_edif = PTHREAD_MUTEX_INITIALIZER;
@@ -34,6 +34,30 @@ int get_ladrillos() {
     return ladrillos;
 }
 
+int get_puestos() {
+    int res;
+    pthread_mutex_lock(&mutex_edif);
+    res = puestos;
+    pthread_mutex_unlock(&mutex_edif);
+    return res;
+}
+
+int construye(int ladrillos) {
+    int faltan = TOTAL - get_puestos();
+    int devolver = 0;
+    if (faltan > 0) {
+        if (ladrillos > faltan){
+            devolver  = ladrillos - faltan;
+            ladrillos = faltan;
+        }
+        pthread_mutex_lock(&mutex_edif);
+        puestos += ladrillos;
+        pthread_mutex_unlock(&mutex_edif);
+        usleep(10000 * (rand() % 3 + 1) );
+    }
+    return devolver;
+}
+
 int quitar(int cantidad) {
     if (cantidad > pila)
         cantidad = pila;
@@ -43,18 +67,20 @@ int quitar(int cantidad) {
     pila -= cantidad;
     pthread_mutex_unlock(&mutex_pila);
 
+    usleep(100000 * (rand() % 3 + 1) );
     return cantidad;
 }
 
 void cuenta_ladrillos(){
-    printf("[%i]\t", get_ladrillos());
+    printf("Paponer:[%i] Puestos:[%i]\t",
+            get_ladrillos(), get_puestos());
 }
 
 void *peon(void *p) {
     const char * mi_nombre = (const char *) p;
     int ladrillos;
 
-    while(1){
+    while(get_puestos() < TOTAL){
         ladrillos = rand() % 10 + 10;
 
         cuenta_ladrillos();
@@ -63,6 +89,7 @@ void *peon(void *p) {
         poner(ladrillos);
         usleep(100000 * (rand() % 3 + 1) );
     }
+    return NULL;
 }
 
 void *albannil(void *n) {
@@ -71,20 +98,17 @@ void *albannil(void *n) {
     int mi_nombre = *mn;
     int cogidos = 0;
 
-    while(puestos < TOTAL) {
+    while(get_puestos() < TOTAL) {
         sem_wait(&albaforo);
-        ladrillos = rand() % 2 + 1;
-        cuenta_ladrillos();
-        printf("%i:\tQuiero %i ladrillos.\tCojo %i\n",
-                mi_nombre, ladrillos, cogidos = quitar(ladrillos));
-        usleep(100000 * (rand() % 3 + 1) );
+          ladrillos = rand() % 10 + 1;
+          cuenta_ladrillos();
+          printf("%i:\tQuiero %i ladrillos.\tCojo %i\n",
+                  mi_nombre, ladrillos, cogidos = quitar(ladrillos));
         sem_post(&albaforo);
 
-        pthread_mutex_lock(&mutex_edif);
-        puestos += cogidos;
-        usleep(10000 * (rand() % 3 + 1) );
-        pthread_mutex_unlock(&mutex_edif);
+        construye(cogidos);
     }
+    return NULL;
 }
 
 int main() {
@@ -118,5 +142,5 @@ int main() {
 
     sem_destroy(&albaforo);
 
-   return EXIT_SUCCESS;
+    return EXIT_SUCCESS;
 }
