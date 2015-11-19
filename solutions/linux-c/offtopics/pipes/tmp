@@ -1,0 +1,23 @@
+#!/bin/bash
+# tmp
+
+exec 3> pepe.txt
+exec 4< pepe.txt
+rm pepe.txt
+
+echo "hola" >&3
+sleep 1
+cat <&4
+
+exec 3>&-
+exec 4<&-
+
+exec 3<> pepe.txt
+rm pepe.txt
+
+echo adios >&3
+sleep 1
+cat <&3
+
+echo "."
+
