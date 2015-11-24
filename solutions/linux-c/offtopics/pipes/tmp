@@ -12,12 +12,12 @@ cat <&4
 exec 3>&-
 exec 4<&-
 
-exec 3<> pepe.txt
+exec 5<> pepe.txt
 rm pepe.txt
 
-echo adios >&3
+echo adios >&5
 sleep 1
-cat <&3
+cat <&5
 
 echo "."
 
