@@ -1,8 +1,8 @@
 .PHONY: dist clean
 
-all: ticket dist clean
+all: libticket.so dist clean
 
-ticket: ticket.cpp
+libticket.so: ticket.cpp
 	g++ -c -I ../../include -fPIC ticket.cpp
 	g++ -shared -fPIC -o libticket.so ticket.o
 
@@ -10,6 +10,6 @@ dist:
 	mv libticket.so ../../lib
 
 clean:
-	$(RM) *.o
+	$(RM) *o
 
 
