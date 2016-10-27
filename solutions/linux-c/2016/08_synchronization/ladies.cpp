@@ -7,9 +7,10 @@
 #include "queue.h"
 
 #define NOMBRES (sizeof(catalog) / sizeof (const char *))
+#define JAOMENY (sizeof(name)    / sizeof (const char *))
 #define PMAX100 20000
 
-Queue bargain;
+Queue bargain[2];
 
 const char *catalog[] = {
     "Umbrella",
@@ -22,11 +23,14 @@ const char *catalog[] = {
     "Rings",
     "Skirt",
     "Thong",
-    "Wig"
+    "Wig",
+    "Szuwarowski"
 };
 
-void fill(Queue *list, int n) {
+void fill(Queue *list, int n, const char *name) {
     Product new_product;
+
+    strncpy(list->name, name, NMAX);
 
     for (int i=0; i<n; i++){
         strncpy(new_product.name, catalog[rand() % NOMBRES], NMAX);
@@ -38,7 +42,7 @@ void fill(Queue *list, int n) {
 
 void print(Queue q){
     for (int i=q.init; i<q.summit; i++)
-        printf("%s - %.2lf (%.2lf)\n",
+        printf("%s: %s - %.2lf (%.2lf)\n", q.name,
                 q.data[i].name, q.data[i].price, q.data[i].off);
 }
 
@@ -46,10 +50,15 @@ void *lady(void *data){
     const char *name = (const char *) data;
 
     Product grab;
+    int b_n;
 
-    while(bargain.summit - bargain.init > 0){
-        grab  = shift(&bargain);
-        printf("%s: I take a %s for %.2lf\n",
+
+
+    for (int i=0; i< 1000; i++) {
+        b_n = rand() % 2;
+        grab  = shift(&bargain[b_n]);
+        printf("[%s] %s: I take a %s for %.2lf\n",
+                bargain[b_n].name,
                 name, grab.name, grab.price * (1 - grab.off));
         usleep(1000);
     }
@@ -58,20 +67,25 @@ void *lady(void *data){
 }
 
 int main() {
-    pthread_t thr_id[2];
+    pthread_t thr_id[5];
     const char *name[] = {
         "Josefa",
-        "Maria"
+        "Maria",
+        "Huan Lu",
+        "Gandy",
+        "Oski Ero"
     };
 
     srand(time(NULL));
-    init(&bargain);
-    fill (&bargain, 8000);
+    init(&bargain[0]);
+    init(&bargain[1]);
+    fill (&bargain[0], 8000, "The English Cut");
+    fill (&bargain[1], 8000, "Appreciated Halls");
 
-    pthread_create(&thr_id[0], NULL, &lady, (void *) name[0]);
-    pthread_create(&thr_id[1], NULL, &lady, (void *) name[1]);
+    for (unsigned i=0; i < JAOMENY; i++)
+        pthread_create(&thr_id[i], NULL, &lady, (void *) name[i]);
 
-    for (int i=0; i<2; i++)
+    for (unsigned i=0; i<JAOMENY; i++)
         pthread_join(thr_id[i], NULL);
 
     return EXIT_SUCCESS;
