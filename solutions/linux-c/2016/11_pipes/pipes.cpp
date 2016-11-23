@@ -2,13 +2,15 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+/* run as: % ./pipes > /dev/pts/XX */
+
 void writer(const char *mssg, int times, FILE *out_tube) {
     const char *letter;
 
     for (letter=mssg; times>0; --times, letter=mssg)
         while (*letter != '\0'){
             fputc(*letter, out_tube);
-            fputc(*letter, stderr);
+            fprintf(stderr, "sending: %c\n", *letter);
             fflush(out_tube);
             letter++;
             usleep(100000);
