@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define DEBUG(mssg) if (verbose) \
-    fprintf(stderr, mssg);
+#define DEBUG(...) if (verbose) \
+    fprintf(stderr, __VA_ARGS__);
 
 const char *program_name;
 int verbose = 0;
@@ -51,8 +51,7 @@ main (int argc, char * const argv[])
 
 	 case 'b':
 	      output_base = atoi(optarg);
-	      if (verbose)
-		  printf("Estableciendo la base de salida a %i\n", output_base);
+	      DEBUG("Estableciendo la base de salida a %i\n", output_base);
 	      break;
 
 	 case '?':
