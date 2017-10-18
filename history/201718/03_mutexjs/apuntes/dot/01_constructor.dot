@@ -1,0 +1,9 @@
+digraph {
+    rankdir=LR
+    node [shape="record"];
+
+    Obrero [label="Obrero::Function | this.name"];
+    txema  [label="txema::Obrero | this.name"];
+
+    Obrero -> txema;
+}

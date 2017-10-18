@@ -1,0 +1,20 @@
+
+
+    Plugin 'Raimondi/delimitMate'
+    Plugin 'nathanaelkane/vim-indent-guides'
+    Plugin 'Valloric/YouCompleteMe'
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'L9'
+    Plugin 'git://git.wincent.com/command-t.git'
+    Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+    Plugin 'Lokaltog/vim-distinguished'
+    Plugin 'altercation/vim-colors-solarized'
+    Plugin 'godlygeek/tabular'
+    Plugin 'marijnh/tern_for_vim'
+    Plugin 'wincent/Command-T'
+    Plugin 'tomtom/tcomment_vim'
+    Plugin 'bling/vim-airline'
+    Plugin 'bitc/vim-bad-whitespace'
+    Plugin 'mattn/emmet-vim'
+    Plugin 'myusuf3/numbers.vim'
+
