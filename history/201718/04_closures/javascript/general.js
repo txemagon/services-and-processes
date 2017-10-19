@@ -13,10 +13,28 @@ Array.prototype.inject = function (acum, fn){
     return acum
 }
 
+Array.prototype.select_if = function (fn){
+    var r = []
+
+    for (var i=0; i<this.length; i++)
+        if (fn(this[i]))
+          r.push(this[i])
+    return r
+
+}
+
 function main() {
 
     var a = [1,2,3,4,5,6]
     var p = []
+
+    alert(a.inject(1, function(acum, el){
+        return acum * el
+    }))
+
+    alert( a.select_if(function(el){
+        return el % 2
+    }).toSource() )
 
     a.each(function(el){
         if (el > 2 && el % 2 == 1)
@@ -27,7 +45,4 @@ function main() {
         alert(el)
     })
 
-    alert(a.inject(0, function(acum, el){
-        return acum + el * el
-    }))
 }
