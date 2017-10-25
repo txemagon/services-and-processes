@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+# define a function
+
+
+def greet(name)
+    puts "Hola " + name
+    puts "Hola #{name}"
+end
+
+greet "Alejandro"
+

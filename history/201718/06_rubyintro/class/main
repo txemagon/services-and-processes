@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+# Example of a class
+
+require './machine_gun.rb'
+require './steward.rb'
+
+name = [ "Sussane", "Cindy", "Nancy", "Stacy", "Caroline", "Claire", "Chloe", "Stephanie", "Lucy" ]
+staff = []
+greeting_pool = []
+machine_gun = MachineGun.new
+mutex = Mutex.new
+
+
+# Creates all the beautiful stewards in miy mind
+7.times do |x|
+    staff << (Steward.new  name[rand(name.size)], machine_gun)
+end
+
+puts "We have #{Steward.count} stewards."
+
+# Make them greet
+staff.each do |s|
+    greeting_pool << Thread.new do
+        mutex.synchronize {s.defend }
+    end
+end
+
+greeting_pool.each do |thread|
+    thread.join
+end
