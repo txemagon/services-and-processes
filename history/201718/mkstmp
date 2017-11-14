@@ -1,0 +1,20 @@
+#!/bin/bash
+# Crear una tubería anónima
+
+
+echo $1 > tuberia.txt
+exec 4< tuberia.txt
+unlink tuberia.txt
+
+sleep 1
+
+while IFS= read -r -n1 char
+do
+   echo -n "$char"
+   sleep 0.15
+done <&4
+
+echo
+
+exec 4<&-
+

@@ -1,0 +1,9 @@
+#!/bin/bash
+# Creates a directory and change into it.
+
+[[ -d pepe ]] && rm -rf pepe && echo "Borro Pepe"
+
+mkdir pepe
+echo "Creo Pepe"
+cd pepe
+echo "Entro en Pepe"
