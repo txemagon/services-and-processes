@@ -18,12 +18,14 @@ spawn (char buffer[N])
     while( argv[i++] = strtok(buffer, " ") )
         buffer = NULL;
 
+    strtok(argv[i-2], "\n"); // Remove newline
+
     mijo = fork();
     if (mijo)
         return;
 
     // execv("/usr/bin/firefox", ["firefox", "index.html", NULL]);
-     execv(argv[0], argv);
+     execvp(argv[0], argv);
      fprintf (stderr, "No he podido ejecutar: %s\n", argv[0]);
      exit(1);
 }
