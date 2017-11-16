@@ -3,6 +3,8 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include <string.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 #define N 0x100
 #define M 0x10
@@ -33,12 +35,14 @@ spawn (char buffer[N])
 int
 main (int argc, char *argv[])
 {
-  char buffer[N];
+  //char buffer[N];
+  char *buffer[N];
 
   while (1)
     {
-      printf (PROMPT);
-      fgets (buffer, N, stdin);
+      //printf (PROMPT);
+      //fgets (buffer, N, stdin);
+      readline ( PROMPT );
       spawn (buffer);
     }
 
