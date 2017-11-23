@@ -20,11 +20,11 @@ main ( int argc, char *argv[] )
   while(getch() != ESC){
     for (int line=0; line<4; line++)
       for (int al=0; al<3; al++)
-      mvprintw( 10 + line, 10 + al * 10, "%s", alien[al][inner % 2][line]);  
+      mvprintw( 10 + line, 10 + al * 10, "%s", alien[al][inner % 2][line]);
     inner++;
     refresh();
   }
   curs_set(1);
   endwin();
   return EXIT_SUCCESS;
-}				
+}

@@ -45,7 +45,7 @@ spawn(char const * lp)
         return;
     }
 
-    // Sólo del hijo
+    // Sólo del hijamente
     bzero(argv, sizeof(argv));
     strncpy(str, lp, M);
     while ( (argv[i++] = strtok(p_str, " ")) )
@@ -55,25 +55,22 @@ spawn(char const * lp)
     fprintf(stderr, "We couldn't run %s.\n", argv[0]);
 }
 
-    // Si varios hijos mueren antes de que se haya procesado
-    // la señal SIGCLD, la señales se compactan en una sola.
-    // Ver apollo_ul-ng.cpp para ver la solución.
-
 void
 undertaker(int ruisignal)
 {
     int estado_de_salida;
-    hijos--;
-    wait(&estado_de_salida);
+    pid_t d;
 
-    /* Abstenerse de printfs en los manejadores  */
-/*
-    if (WIFEXITED(estado_de_salida))
-        fprintf(stderr, "Muerte natural: %i\n", WEXITSTATUS(estado_de_salida));
-    else
-        fprintf(stderr, "Muerte desnatada.\n");
-    fprintf(stderr, "%i hijos restantes.\n", hijos);
-    */
+    // -1 espera a que muera cualquier hijo.
+    // Usamos un while porque SIGCHLD puede indicar que
+    // ha muerto más de un hijo.
+    // (Si ya hay un evento SIGCHLD y muere otro hijo
+    // no se envía una segunda señal)
+    // WNOHANG: Si no ha muerto nadie, no esperamos.
+    while ( ( d = waitpid(-1, &estado_de_salida, WNOHANG) ) > 0){
+        hijos--;
+        fprintf(stderr, "Muere %i\n", d);
+    }
 }
 
 int
@@ -98,7 +95,7 @@ main(int argc, char *argv[])
         usleep(100000);
     }
 
-    printf("The World is a vampire.\n");
+    fprintf(stderr, "The World is a vampire.\n");
 
     return EXIT_SUCCESS;
 }
